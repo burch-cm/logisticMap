@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## The Logistic Map
-The logistic map is a function which models population over time. It was developed by Robert May, and is a discreete-time, unit-free version of Verhult's "Logistic Equation". The logistic map is often-studied example of how deterministic, non-linear functions can generate chaotic and complex behavior.  
+The logistic map is a function which models population over time. It was developed by Robert May, and is a discrete-time, unit-free version of Verhulst's "Logistic Equation". The logistic map is often-studied example of how deterministic, non-linear functions can generate chaotic and complex behavior.  
 
 The logistic map function takes the form $x_{t+1} = Rx_t(1-x_t)$  
 where:  
