@@ -39,12 +39,12 @@ logisticMap <- function(r, x0, n){
 The behavior of the logistic map is primarily dependent on the reporductive constant $R$. For example, despite starting at different population levels, multiple systems with the same $R$ value will converge over time.
 
 ```{r, echo = FALSE}
-x_0.25 <- logisticMap(r = 2.1, x0 = 0.25, n = 50) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.25, length(.)))
-x_0.35 <- logisticMap(r = 2.1, x0 = 0.35, n = 50) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.35, length(.)))
-x_0.45 <- logisticMap(r = 2.1, x0 = 0.45, n = 50) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.45, length(.)))
-x_0.55 <- logisticMap(r = 2.1, x0 = 0.55, n = 50) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.55, length(.)))
-x_0.65 <- logisticMap(r = 2.1, x0 = 0.65, n = 50) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.65, length(.)))
-x_0.75 <- logisticMap(r = 2.1, x0 = 0.75, n = 50) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.75, length(.)))
+x_0.25 <- logisticMap(r = 2.1, x0 = 0.25, n = 10) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.25, length(.)))
+x_0.35 <- logisticMap(r = 2.1, x0 = 0.35, n = 10) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.35, length(.)))
+x_0.45 <- logisticMap(r = 2.1, x0 = 0.45, n = 10) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.45, length(.)))
+x_0.55 <- logisticMap(r = 2.1, x0 = 0.55, n = 10) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.55, length(.)))
+x_0.65 <- logisticMap(r = 2.1, x0 = 0.65, n = 10) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.65, length(.)))
+x_0.75 <- logisticMap(r = 2.1, x0 = 0.75, n = 10) %>% data.frame(t = 1:length(.), x_t = ., x_val = rep(0.75, length(.)))
 dat <- rbind(x_0.25, x_0.35, x_0.45, x_0.55, x_0.65, x_0.75)
 ggplot(dat, aes(x = t, y = x_t, group = x_val)) + geom_line(aes(color = factor(x_val))) + ggtitle("Convergence of systems with different initial values")
 ```
@@ -85,6 +85,6 @@ x <- bifurcateLM(r.from = 2.8, r.to = 4, r.num = 1000, x0 = 0.5, x.num = 1000)
 ggplot(x, aes(x = r_val, y = x_val)) + geom_point(size = .25)
 ```
   
-This is the classic bifurcation plot associated with the logistic map. For $R$ values less than 3, there is only one stable solution. When $R > 3$ multiple stable solutions appear, with the number of stable points increasing as a function of $R$. When $R$ gets above about 3.6, chaotic behavior appears as the system no longer finds a stable solution, but osciallates between an increasing number of points. Especially interesting is the fact that "islands of normalcy" occur in the bifurcation where the chaos dies down and the system osciallates between a handful of points.
+This is the classic bifurcation plot associated with the logistic map. For $R$ values less than 3, there is only one stable solution. When $R > 3$ multiple stable solutions appear, with the number of stable points increasing as a function of $R$. When $R$ gets above about 3.6, chaotic behavior appears as the system no longer finds a stable solution, but oscillates between an increasing number of points. Especially interesting is the fact that "islands of normalcy" occur in the bifurcation where the chaos dies down and the system oscillates between a handful of points.
 
 The logistic map is fascinating because it is a relatively simple deterministic function which generates complex, chaotic behavior. Chaos is not dependent on stochastic systems, but can occur as an emergent property of deterministic functions.
