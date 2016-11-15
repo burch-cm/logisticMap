@@ -1,7 +1,7 @@
 library(magrittr)
 library(ggplot2)
 #### ----- Functions -----
-buildMarkov <- function(nstates = 20, p.remain = .25, from = 1, to = 4, names = FALSE){
+buildMarkov <- function(nstates = 20, p.remain = .25, from = 1, to = 4, names = FALSE, ...){
     mrkv <- matrix(data = NA, nrow = nstates, ncol = nstates)
 
     getDist <- function(nstates){
@@ -14,8 +14,11 @@ buildMarkov <- function(nstates = 20, p.remain = .25, from = 1, to = 4, names = 
         return(d)
     }
     
-    getWeights <- function(distMatrix){
+    getWeights <- function(distMatrix, method = "square"){
         w <- matrix(data = NA, nrow = nrow(distMatrix), ncol = ncol(distMatrix))
+        if(method == "square"){
+            distMatrix <- distMatrix^2
+        }
         for(i in 1:nrow(distMatrix)){
             rs <- sum(distMatrix[i,])
             for(j in 1:ncol(distMatrix)){
@@ -69,15 +72,15 @@ logisticMapMarkov <- function(moves, x0){
 }
 
 #### ----- Set variables -----
-nstates = 40
+nstates = 1000
 start = 1
 end = 4
-pr.remain = .995
+pr.remain = .75
 init = 1 # setting to 0 uses a random number
 nsteps = 1000
 #### ----- Run model -----
 set.seed(1778)
-prtrans <- buildMarkov(nstates, pr.remain, start, end) %>% apply(1, cumsum) %>% t
+prtrans <- buildMarkov(nstates, pr.remain, start, end, method = "squared") %>% apply(1, cumsum) %>% t
 states <- seq(start, end, length.out = nstates)
 init <- ifelse(init == 0, init, states[which(states >= init)[1]])
 m <- getMoves(states, prtrans, nsteps, init)
@@ -87,3 +90,6 @@ vals <- logisticMapMarkov(m, x0 = 0.5)
 vals.dt <- data.frame(time = 1:length(vals), population = vals, r_val = c(init.state, m))
 g1 <- ggplot(vals.dt, aes(x = time, y = population))
 g1 + geom_point(col = "grey") + geom_line(col = "black")
+
+g2 <- ggplot(vals.dt, aes(x = time, y = r_val))
+g2 + geom_line(col = "black")
